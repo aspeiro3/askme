@@ -15,10 +15,6 @@ module ApplicationHelper
       return option_three
     end
     return option_one if ostatok == 1
-<<<<<<< HEAD
     return option_two if ostatok.between?(2, 4)
-=======
-    return option_two if ostatok >= 2 && ostatok <=4
->>>>>>> 20178fdb709b5e63dc595d677a4ec1b13e603979
   end
 end
