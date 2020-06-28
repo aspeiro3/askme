@@ -4,6 +4,10 @@
     <%= @user.name %>
   </h1>
 
+  <div class="buffer-both">
+    <%= link_to 'Редактировать профиль', edit_user_path(@user) if current_user == @user %>
+  </div>
+
   <div class="user-image-div">
     <%= image_tag user_avatar(@user), class: 'user-image', alt: '[Фото]' %>
   </div>
@@ -38,8 +42,8 @@
 
     <p class="text-small">
       Без ответа -
-      <%= @questions.size - @answers.size %>
-      <%= declension_of_words(@questions.size - @answers.size, "вопрос", "вопроса", "вопросов") %>
+      <%= @unanswered_questions %>
+      <%= declension_of_words(@unanswered_questions, "вопрос", "вопроса", "вопросов") %>
     </p>
   </div>
 </div>

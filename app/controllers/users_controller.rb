@@ -1,53 +1,62 @@
 class UsersController < ApplicationController
+  before_action :load_user, except: [:index, :new, :create]
+  before_action :authorize_user, except: [:index, :new, :create, :show]
   # Это действие отзывается, когда пользователь заходит по адресу /users
   def index
-    @users = [
-      User.new(
-        id: 1,
-        name: 'Artem',
-        username: 'aspeiro3',
-        avatar_url: 'https://aspeiro3.github.io/cv/images/foto.jpeg'
-      ),
-      User.new(
-        id: 2,
-        name: 'Misha',
-        username: 'aristofun'
-      )
-    ]
+    @users = User.all
   end
 
   def new
+    redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
+    @user = User.new
+  end
+
+  def create
+    redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
+    @user = User.new(user_params)
+
+    if @user.save
+      redirect_to root_url, notice: 'Пользователь успешно зарегестрирован!'
+    else
+      render 'new'
+    end
   end
 
   def edit
   end
 
+  def update
+    if @user.update(user_params)
+      redirect_to user_path(@user), notice: 'Данные обновлены'
+    else
+      render 'edit'
+    end
+  end
+
   # Это действие отзывается, когда пользователь заходит по адресу /users/:id,
   # например /users/1.
   def show
-    # Болванка пользователя
-    @user = User.new(
-      name: 'Artem',
-      username: 'aspeiro3',
-      avatar_url: 'https://aspeiro3.github.io/cv/images/foto.jpeg'
-    )
-
-    # Болванка вопросов для пользователя
-    @questions = [
-      Question.new(text: 'Как дела?', created_at: Date.parse('15.06.2020')),
-      Question.new(text: 'В чем смысл жизни?', created_at: Date.parse('15.06.2020')),
-      Question.new(text: 'Что?', created_at: Date.parse('15.06.2020')),
-      Question.new(text: 'Где?', created_at: Date.parse('15.06.2020')),
-      Question.new(text: 'Когда?', created_at: Date.parse('15.06.2020')),
-      Question.new(text: 'Зачем?', created_at: Date.parse('15.06.2020')),
-      Question.new(text: 'Почему?', created_at: Date.parse('15.06.2020')),
-      Question.new(text: 'В чем смысл?', created_at: Date.parse('15.06.2020'))
-    ]
-
-    # Болванка ответов
+    @questions = @user.questions.order(created_at: :desc)
     @answers = []
 
-    # Болванка для нового вопроса
-    @new_question = Question.new
+    @unanswered_questions = @questions.size - @answers.size
+
+    @new_question = @user.questions.build
+  end
+
+  private
+
+  def authorize_user
+    reject_user unless @user == current_user
+  end
+
+
+  def load_user
+    @user ||= User.find params[:id]
+  end
+
+  def user_params
+    params.require(:user)
+      .permit(:email, :password, :password_confirmation, :name, :username, :avatar_url)
   end
 end
