@@ -17,4 +17,8 @@ module ApplicationHelper
     return option_one if ostatok == 1
     return option_two if ostatok.between?(2, 4)
   end
+
+  def fa_icon(icon_class)
+    content_tag 'span', '', class: "fa fa-#{icon_class}"
+  end
 end
