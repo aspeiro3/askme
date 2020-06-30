@@ -1,3 +1,7 @@
+.questions-list {
+  padding: 10px 0;
+}
+
 .question {
   background: white;
 }
@@ -15,11 +19,12 @@
   margin-bottom: 10px;
 }
 
-.question-text {
+.questions-size {
   color: #005a55;
 }
 
-.question-answer {
+.question-text {
+  color: #005a55;
 }
 
 .question-date {
