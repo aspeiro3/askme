@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   # например /users/1.
   def show
     @questions = @user.questions.order(created_at: :desc)
-    @answers = Question.where.not(answer: nil)
+    @answers = @questions.where.not(answer: nil)
 
     @unanswered_questions = @questions.size - @answers.size
 
