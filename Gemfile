@@ -10,6 +10,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rails-i18n'
 gem 'russian', '~> 0.6.0'
 gem 'uglifier'
+gem 'rails_12factor'
 
 group :production do
   gem 'pg'
