@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :load_user, except: [:index, :new, :create]
   before_action :authorize_user, except: [:index, :new, :create, :show]
+
   # Это действие отзывается, когда пользователь заходит по адресу /users
   def index
     @users = User.all
@@ -57,6 +58,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user)
-      .permit(:email, :password, :password_confirmation, :name, :username, :avatar_url)
+      .permit(:email, :password, :password_confirmation, :name, :username, :avatar_url, :background)
   end
 end
