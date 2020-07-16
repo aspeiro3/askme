@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :load_user, except: [:index, :new, :create]
-  before_action :authorize_user, except: [:index, :new, :create, :show]
+  before_action :load_user, except: [:index, :new, :create, :destroy]
+  before_action :authorize_user, except: [:index, :new, :create, :show, :destroy]
 
   # Это действие отзывается, когда пользователь заходит по адресу /users
   def index
@@ -44,6 +44,12 @@ class UsersController < ApplicationController
     @unanswered_questions = @questions.size - @answers.size
 
     @new_question = @user.questions.build
+  end
+
+  def destroy
+    user = User.find(session[:user_id])
+    user.destroy
+    redirect_to root_path, notice: 'Пользователь удалён :('
   end
 
   private

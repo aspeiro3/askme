@@ -52,5 +52,8 @@
       </div>
     <% end %>
 
+    <div class="buffer-both text-small">
+      <%= link_to 'Удалить профиль', user_delete_path(@user) if current_user == @user %>
+    </div>
   </div>
 </div>

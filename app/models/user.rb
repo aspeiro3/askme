@@ -5,6 +5,7 @@ class User < ApplicationRecord
   DIGEST = OpenSSL::Digest::SHA256.new
   EMAIL_FORMAT = /\A.+@.+\z/
   USERNAME_FORMAT = /\A\w+\z/
+  BACKGROUND_FORMAT = /\A#([0-9a-f]{3}|[0-9a-f]{6})\z/
 
   attr_accessor :password
 
@@ -14,6 +15,10 @@ class User < ApplicationRecord
             presence: true,
             uniqueness: true,
             format: { with: EMAIL_FORMAT }
+
+  validates :background,
+            presence: true,
+            format: { with: BACKGROUND_FORMAT }
 
   validates :username,
             presence: true,
