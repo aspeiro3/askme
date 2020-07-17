@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
-  before_action :load_user, except: [:index, :new, :create, :destroy]
-  before_action :authorize_user, except: [:index, :new, :create, :show, :destroy]
+  # Для того, чтобы избежать повторений кода
+  before_action :load_user, except: [:index, :new, :create]
+  before_action :authorize_user, except: [:index, :new, :create, :show]
 
   # Это действие отзывается, когда пользователь заходит по адресу /users
   def index
-    @users = User.all
+    @users = User.sorted # sorted - это метод scope в модели user
   end
 
   def new
@@ -47,8 +48,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(session[:user_id])
-    user.destroy
+    @user.destroy
+    session[:user_id] = nil
     redirect_to root_path, notice: 'Пользователь удалён :('
   end
 
@@ -59,7 +60,7 @@ class UsersController < ApplicationController
   end
 
   def load_user
-    @user ||= User.find params[:id]
+    @user ||= User.find(params[:id])
   end
 
   def user_params

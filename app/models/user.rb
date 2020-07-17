@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
+  scope :sorted, -> {order(created_at: :asc)}
+
   has_many :questions, dependent: :destroy
 
   validates :email,
