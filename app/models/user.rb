@@ -12,7 +12,7 @@ class User < ApplicationRecord
   scope :sorted, -> {order(created_at: :asc)}
 
   has_many :questions, dependent: :destroy
-
+ 
   validates :email,
             presence: true,
             uniqueness: true,

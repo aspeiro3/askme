@@ -3,6 +3,15 @@
 
 <div class="question">
   <div class="question-content">
+    
+    <div class="text-small">
+      <% if question.author.present? %>
+        Задал <%= link_to "@#{question.author.username}", user_path(question.author) %>
+      <% else %>
+        Анонимный пользователь
+      <% end %>
+    </div>
+
     <div class="question-text text-lead">
       <%= question.text %>
     </div>
