@@ -21,4 +21,12 @@ module ApplicationHelper
   def fa_icon(icon_class)
     content_tag 'span', '', class: "fa fa-#{icon_class}"
   end
+
+  def question_author(question)
+    if question.author.present?
+      link_to "Задал @#{question.author.username}", user_path(question.author)
+    else
+      'Анонимный пользователь'
+    end
+  end
 end

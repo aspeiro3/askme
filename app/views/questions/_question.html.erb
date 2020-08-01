@@ -1,26 +1,19 @@
-<% question ||= nil %>
 <% action_icon = question.answer.blank? ? 'reply' : 'pencil' %>
 
 <div class="question">
   <div class="question-content">
-    
+
     <div class="text-small">
-      <% if question.author.present? %>
-        Задал <%= link_to "@#{question.author.username}", user_path(question.author) %>
-      <% else %>
-        Анонимный пользователь
-      <% end %>
+      <%= question_author(question) %>
     </div>
 
     <div class="question-text text-lead">
       <%= question.text %>
     </div>
 
-    <% if question.answer.present? %>
-      <div class="question-answer text-lead">
-        <%= question.answer if question.answer.present? %>
-      </div>
-    <% end %>
+    <div class="question-answer text-lead">
+      <%= question.answer if question.answer.present? %>
+    </div>
 
     <div class="question-date">
       <%= l(question.created_at, format: :short) %>
