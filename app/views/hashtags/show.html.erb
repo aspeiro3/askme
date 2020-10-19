@@ -1,0 +1,11 @@
+<div class="container content-wrapper text-center buffer-both">
+  <%= @hashtag.text %>
+
+  <% @questions.each do |question| %>
+    <%= question.text %>
+    <br>
+    <%= question.answer %>
+    <br>
+    <%= link_to question.user.username, user_path(question.user) %>
+  <% end %>
+</div>
