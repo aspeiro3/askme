@@ -14,7 +14,7 @@ class Question < ApplicationRecord
   private
 
   def create_hashtags
-    self.text =
+    self.hashtags =
       "#{answer} #{text}".
       downcase.
       scan(Hashtag::REGEXP).

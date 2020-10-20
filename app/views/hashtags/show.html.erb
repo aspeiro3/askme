@@ -1,11 +1,12 @@
-<div class="container content-wrapper text-center buffer-both">
-  <%= @hashtag.text %>
-
-  <% @questions.each do |question| %>
-    <%= question.text %>
-    <br>
-    <%= question.answer %>
-    <br>
-    <%= link_to question.user.username, user_path(question.user) %>
-  <% end %>
+<div class="container">
+  <div class="user-questions buffer-both">
+    <div class="questions-list">
+      <h1 class="text-center padding-top"><%= @hashtag.text %></h1>
+      <br>
+      <br>
+      <% @questions.each do |question| %>
+        <%= render partial: 'questions/question', object: question %>
+      <% end %>
+    </div>
+  </div>
 </div>

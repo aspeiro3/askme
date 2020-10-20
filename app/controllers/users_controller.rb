@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   # Это действие отзывается, когда пользователь заходит по адресу /users
   def index
     @users = User.sorted # sorted - это метод scope в модели user
+    @hashtags = Hashtag.with_questions
   end
 
   def new
